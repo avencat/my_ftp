@@ -3,63 +3,77 @@ CC		=  gcc
 RM		=  rm -rf
 
 SRCDIR		=  src/
-SRCSDIR		=  src/server/
-SRCCDIR		=  src/client/
+SRCSERVERDIR	=  src/server/
+SRCCLIENTDIR	=  src/client/
 
 OBJDIR		=  obj/
-OBJSDIR		=  obj/server/
-OBJCDIR		=  obj/client/
+OBJSERVERDIR	=  obj/server/
+OBJCLIENTDIR	=  obj/client/
 
-INCDIR		=  inc/
-INCSDIR		=  include/server/
-INCCDIR		=  include/client/
+INCDIR		=  include/
+INCSERVERDIR	=  include/server/
+INCCLIENTDIR	=  include/client/
 
-INCFLAGS	=  -I./$(INCDIR) -I./$(INCCDIR) -I./$(INCSDIR)
+INCFLAGS	=  -I./$(INCDIR) -I./$(INCCLIENTDIR) -I./$(INCSERVERDIR)
 CFLAGS		+= -W -Wall -Wextra -Werror $(INCFLAGS)
 
 SERVER		=  serveur
 CLIENT		=  client
 NAME		=  my_ftp
 
-SRCLIENT	=
+SRC		=  $(SRCDIR)socket.c	\
 
-SRCSERVER	=  $(SRCSDIR)main.c	\
+SRCSERVER	=  $(SRCSERVERDIR)main.c	\
+		   $(OBJ)
 
-SRCSERVER	+= $(SRC)
+SRCCLIENT	=  $(SRCCLIENTDIR)main.c	\
+		   $(OBJ)
 
-SRCCLIENT	=  $(SRCCDIR)main.c	\
-
-SRCCLIENT	+= $(SRC)
-
-OBJSERVER	=  $(SRCSERVER:$(SRCSDIR)%.c=$(OBJSDIR)%.o)
-OBJCLIENT	=  $(SRCCLIENT:$(SRCCDIR)%.c=$(OBJCDIR)%.o)
+OBJ		=  $(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
+OBJCLIENT	=  $(SRCCLIENT:$(SRCCLIENTDIR)%.c=$(OBJCLIENTDIR)%.o)
+OBJSERVER	=  $(SRCSERVER:$(SRCSERVERDIR)%.c=$(OBJSERVERDIR)%.o)
 
 
-$(NAME):	   $(CLIENT) $(SERVER)
+$(NAME):	   $(OBJ) msg $(CLIENT) $(SERVER)
 
 all:		   $(NAME)
 
-$(OBJCDIR)%.o:	   $(SRCCDIR)%.c
-		   @mkdir -p $(OBJCDIR)
-		   $(CC) $(CFLAGS) -c $< -o $@
+msg:
+		   @echo -e "\033[33mCommons Compiled\033[00m"
 
-$(OBJSDIR)%.o:	   $(SRCSDIR)%.c
-		   @mkdir -p $(OBJSDIR)
-		   $(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)%.o:	   $(SRCDIR)%.c
+		   @mkdir -p $(OBJDIR)
+		   @mkdir -p $(OBJCLIENTDIR)
+		   @mkdir -p $(OBJSERVERDIR)
+		   @echo -e "Compiling $<"
+		   @$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJCLIENTDIR)%.o:$(SRCCLIENTDIR)%.c
+		   @echo -e "Compiling $<"
+		   @$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJSERVERDIR)%.o:$(SRCSERVERDIR)%.c
+		   @echo -e "Compiling $<"
+		   @$(CC) $(CFLAGS) -c $< -o $@
 
 $(CLIENT):	   $(OBJCLIENT)
-		   $(CC) $(CFLAGS) -o $(CLIENT) $(OBJCLIENT)
+		   @$(CC) $(CFLAGS) -o $(CLIENT) $(OBJCLIENT)
+		   @echo -e "\033[33mClient Compiled\033[00m"
 
 $(SERVER):  	   $(OBJSERVER)
-		   $(CC) $(CFLAGS) -o $(SERVER) $(OBJSERVER)
+		   @$(CC) $(CFLAGS) -o $(SERVER) $(OBJSERVER)
+		   @echo -e "\033[33mServer Compiled\033[00m"
 
 clean:
-		   $(RM) $(OBJSERVER)
-		   $(RM) $(OBJCLIENT)
+		   @echo -e "\033[31mRemoving Objects\033[00m"
+		   @$(RM) $(OBJSERVER)
+		   @$(RM) $(OBJCLIENT)
+		   @$(RM) $(OBJDIR)
 
 fclean:		   clean
-		   $(RM) $(SERVER)
-		   $(RM) $(CLIENT)
+		   @echo -e "\033[31mRemoving Client & Serveur\033[00m"
+		   @$(RM) $(SERVER)
+		   @$(RM) $(CLIENT)
 
 re:		   fclean all
 
