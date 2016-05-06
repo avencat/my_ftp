@@ -1,0 +1,47 @@
+/*
+** ftp_functions.c for PSU_2015_myftp
+**
+** Made by	Axel Vencatareddy
+** Login	vencat_a
+**
+** Started on	Fri May 06 15:37:37 2016 Axel Vencatareddy
+** Last update	Fri May 06 19:08:31 2016 Axel Vencatareddy
+*/
+
+#include "functions_ptr.h"
+
+int	my_user(t_ptr *struc)
+{
+  if (!struc->tab || !struc->tab[1] || struc->tab[1][0] == 0)
+    send_msg(struc->client_fd, "530 Permission denied.\r\n");
+  else
+    {
+      struc->user = strdup(struc->tab[1]);
+      send_msg(struc->client_fd, "331 Please specify the password.\r\n");
+    }
+  return (0);
+}
+
+int	my_quit(t_ptr *struc)
+{
+  send_msg(struc->client_fd, "221 Goodbye.\r\n");
+  struc->end = true;
+  shutdown(struc->client_fd, 2);
+  return (0);
+}
+
+int	my_pass(t_ptr *struc)
+{
+  if (struc->is_connected == true)
+    send_msg(struc->client_fd, "230 Already logged in.\r\n");
+  else if (!struc->tab || !struc->user)
+    send_msg(struc->client_fd, "503 Login with USER first.\r\n");
+  else if (strcmp(struc->user, "Anonymous") == 0)
+    {
+      send_msg(struc->client_fd, "230 Login successful.\r\n");
+      struc->is_connected = true;
+    }
+  else
+    send_msg(struc->client_fd, "530 Login incorrect.\r\n");
+  return (0);
+}

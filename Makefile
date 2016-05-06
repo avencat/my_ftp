@@ -21,12 +21,16 @@ SERVER		=  serveur
 CLIENT		=  client
 NAME		=  my_ftp
 
-SRC		=  $(SRCDIR)socket.c	\
+SRC		=  $(SRCDIR)socket.c		\
+		   $(SRCDIR)transmission.c	\
+		   $(SRCDIR)string.c		\
 
-SRCSERVER	=  $(SRCSERVERDIR)main.c	\
+SRCSERVER	=  $(SRCSERVERDIR)server.c		\
+		   $(SRCSERVERDIR)functions_ptr.c	\
+		   $(SRCSERVERDIR)ftp_functions.c	\
 		   $(OBJ)
 
-SRCCLIENT	=  $(SRCCLIENTDIR)main.c	\
+SRCCLIENT	=  $(SRCCLIENTDIR)client.c	\
 		   $(OBJ)
 
 OBJ		=  $(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)
@@ -34,12 +38,9 @@ OBJCLIENT	=  $(SRCCLIENT:$(SRCCLIENTDIR)%.c=$(OBJCLIENTDIR)%.o)
 OBJSERVER	=  $(SRCSERVER:$(SRCSERVERDIR)%.c=$(OBJSERVERDIR)%.o)
 
 
-$(NAME):	   $(OBJ) msg $(CLIENT) $(SERVER)
+$(NAME):	   $(OBJ) $(CLIENT) $(SERVER)
 
 all:		   $(NAME)
-
-msg:
-		   @echo -e "\033[33mCommons Compiled\033[00m"
 
 $(OBJDIR)%.o:	   $(SRCDIR)%.c
 		   @mkdir -p $(OBJDIR)
