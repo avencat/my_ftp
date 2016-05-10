@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:27:52 2016 Axel Vencatareddy
-** Last update	Fri May 06 14:43:20 2016 Axel Vencatareddy
+** Last update	Tue May 10 22:46:44 2016 Axel Vencatareddy
 */
 
 #include "socket.h"
@@ -74,9 +74,9 @@ int		init_socket(int fd_sock, int port)
   return (0);
 }
 
-int		listen_socket(int fd_sock)
+int		listen_socket(int fd_sock, int nb)
 {
-  if (listen(fd_sock, NB_CLIENTS_MAX) == -1)
+  if (listen(fd_sock, nb) == -1)
     {
       perror("listen() error");
       close_socket(fd_sock);

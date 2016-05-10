@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:21:01 2016 Axel Vencatareddy
-** Last update	Fri May 06 17:30:00 2016 Axel Vencatareddy
+** Last update	Tue May 10 22:53:30 2016 Axel Vencatareddy
 */
 
 #ifndef SERVER_H_
@@ -22,6 +22,7 @@
 # include "my_string_prot.h"
 
 typedef enum { false, true } bool;
+typedef enum { PASV, ACTV, NOPE } data_mode;
 
 typedef struct	s_ptr
 {
@@ -31,8 +32,17 @@ typedef struct	s_ptr
   char		*user;
   bool		is_connected;
   bool		end;
+  char		*pwd;
+  char		*pwd_to_free;
+  char		*root_dir;
+  data_mode	mode;
+  int		data_fd;
+  int		data_port;
 }		t_ptr;
 
 int		functions_ptr(t_ptr *);
+char		*get_current_dir_name();
+void		my_free_tab(char **);
+void		init_struc(t_ptr *, int, int, char *);
 
 #endif /* !SERVER_H_ */

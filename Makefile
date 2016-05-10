@@ -28,6 +28,11 @@ SRC		=  $(SRCDIR)socket.c		\
 SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 		   $(SRCSERVERDIR)functions_ptr.c	\
 		   $(SRCSERVERDIR)ftp_functions.c	\
+		   $(SRCSERVERDIR)ftp_other_func.c	\
+		   $(SRCSERVERDIR)ftp_cwd_func.c	\
+		   $(SRCSERVERDIR)ftp_pasv.c		\
+		   $(SRCSERVERDIR)ftp_port.c		\
+		   $(SRCSERVERDIR)struct.c		\
 		   $(OBJ)
 
 SRCCLIENT	=  $(SRCCLIENTDIR)client.c	\

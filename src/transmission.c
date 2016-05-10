@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Tue Apr 26 17:46:13 2016 Axel Vencatareddy
-** Last update	Fri May 06 19:11:47 2016 Axel Vencatareddy
+** Last update	Tue May 10 21:51:48 2016 Axel Vencatareddy
 */
 
 #include "transmission.h"
@@ -32,7 +32,6 @@ int		accept_socket(int sock_fd)
       perror("accept() error");
       return (-1);
     }
-  send_msg(client_fd, "220 (vsFTPd 3.0.0)\r\n");
   return (client_fd);
 }
 

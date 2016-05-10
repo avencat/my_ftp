@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:16:12 2016 Axel Vencatareddy
-** Last update	Fri May 06 19:08:51 2016 Axel Vencatareddy
+** Last update	Tue May 10 22:52:22 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -55,17 +55,17 @@ int	functions_ptr(t_ptr *struc)
   init_functions_ptr(ptr_name);
   ptr[0] = &my_user;
   ptr[1] = &my_pass;
-  // ptr[2] = &my_cwd;
-  // ptr[3] = &my_cdup;
+  ptr[2] = &my_cwd;
+  ptr[3] = &my_cdup;
   ptr[4] = &my_quit;
-  // ptr[5] = &my_dele;
-  // ptr[6] = &my_pwd;
-  // ptr[7] = &my_pasv;
-  // ptr[8] = &my_port;
-  // ptr[9] = &my_help;
-  // ptr[10] = &my_noop;
+  ptr[5] = &my_dele;
+  ptr[6] = &my_pwd;
+  ptr[7] = &my_pasv;
+  ptr[8] = &my_port;
+  ptr[9] = &my_help;
+  ptr[10] = &my_noop;
   // ptr[11] = &my_retr;
   // ptr[12] = &my_stor;
-  // ptr[13] = &my_list;
+  ptr[13] = &my_list;
   return (my_ptr_func(ptr, ptr_name, struc));
 }
