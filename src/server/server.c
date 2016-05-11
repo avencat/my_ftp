@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:08:36 2016 Axel Vencatareddy
-** Last update	Tue May 10 21:51:33 2016 Axel Vencatareddy
+** Last update	Wed May 11 15:44:33 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -47,7 +47,7 @@ int		server(int fd_sock, int fd_client, char *root_dir)
 int		accept_all_clients(int fd_sock, char *root_dir)
 {
   int		client_fd;
-  pid_t		fd_fork;
+  pid_t		pid_fork;
   int		nb_childs;
 
   nb_childs = 0;
@@ -58,12 +58,12 @@ int		accept_all_clients(int fd_sock, char *root_dir)
           close_socket(fd_sock);
           return (-1);
         }
-      if ((fd_fork = fork()) == -1)
+      if ((pid_fork = fork()) == -1)
         {
           close_socket(fd_sock);
           return (-1);
         }
-      else if (fd_fork == 0)
+      else if (pid_fork == 0)
         {
           if (server(fd_sock, client_fd, root_dir) == -1)
             exit(-1);

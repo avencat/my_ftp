@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:16:12 2016 Axel Vencatareddy
-** Last update	Tue May 10 22:52:22 2016 Axel Vencatareddy
+** Last update	Wed May 11 13:09:21 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -64,8 +64,8 @@ int	functions_ptr(t_ptr *struc)
   ptr[8] = &my_port;
   ptr[9] = &my_help;
   ptr[10] = &my_noop;
-  // ptr[11] = &my_retr;
-  // ptr[12] = &my_stor;
+  ptr[11] = &my_retr;
+  ptr[12] = &my_stor;
   ptr[13] = &my_list;
   return (my_ptr_func(ptr, ptr_name, struc));
 }

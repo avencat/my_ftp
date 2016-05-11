@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Mon May 09 15:59:05 2016 Axel Vencatareddy
-** Last update	Tue May 10 23:38:58 2016 Axel Vencatareddy
+** Last update	Wed May 11 15:41:54 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -84,10 +84,10 @@ int	my_list(t_ptr *struc)
     {
       send_msg(struc->client_fd, "150 Opening ASCII mode data connection.\r\n");
       struc->mode = NOPE;
-      tmp = dup(0);
-      dup2(struc->data_fd, 0);
+      tmp = dup(1);
+      dup2(struc->data_fd, 1);
       system("ls -l | grep -v ^d | grep -v ^total");
-      dup2(tmp, 0);
+      dup2(tmp, 1);
       send_msg(struc->client_fd, "226 Transfer complete.\r\n");
     }
   return (0);

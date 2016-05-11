@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:17:23 2016 Axel Vencatareddy
-** Last update	Tue May 10 22:52:17 2016 Axel Vencatareddy
+** Last update	Wed May 11 13:09:17 2016 Axel Vencatareddy
 */
 
 #ifndef FUNCTIONS_PTR_H_
@@ -24,8 +24,8 @@ int	my_pasv(t_ptr *);
 int	my_port(t_ptr *);
 int	my_help(t_ptr *);
 int	my_noop(t_ptr *);
-// int	my_retr(t_ptr *);
-// int	my_stor(t_ptr *);
+int	my_retr(t_ptr *);
+int	my_stor(t_ptr *);
 int	my_list(t_ptr *);
 
 #endif /* !FUNCTIONS_PTR_H_ */
