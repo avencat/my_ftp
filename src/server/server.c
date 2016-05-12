@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:08:36 2016 Axel Vencatareddy
-** Last update	Wed May 11 15:44:33 2016 Axel Vencatareddy
+** Last update	Thu May 12 15:44:10 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -82,11 +82,17 @@ int		main(int ac, char **av)
       printf("Usage: ./server [port] [path]\n");
       return (-1);
     }
+  if (chdir(av[2]) == -1)
+    {
+      fprintf(stderr, "Invalid path: %s\n", av[2]);
+      return (-1);
+    }
   if ((fd_sock = open_socket()) == -1)
     return (-1);
   if (init_socket(fd_sock, atoi(av[1])) == -1)
     return (-1);
-  printf("host: %s\n", av[1]);
+  printf("Hello !\nServer port: %s\nPATH of the Anonymous account: %s\
+\nUse ^C to QUIT.\n", av[1], av[2]);
   if (listen_socket(fd_sock, NB_CLIENTS_MAX) == -1)
     return (-1);
   if (accept_all_clients(fd_sock, strdup(av[2])) == -1)

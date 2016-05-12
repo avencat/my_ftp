@@ -15,15 +15,15 @@ INCSERVERDIR	=  include/server/
 INCCLIENTDIR	=  include/client/
 
 INCFLAGS	=  -I./$(INCDIR) -I./$(INCCLIENTDIR) -I./$(INCSERVERDIR)
-CFLAGS		+= -W -Wall -Wextra -Werror $(INCFLAGS)
+CFLAGS		+= -W -Wall -Wextra -Werror $(INCFLAGS) -g
 
 SERVER		=  serveur
 CLIENT		=  client
 NAME		=  my_ftp
 
-SRC		=  $(SRCDIR)socket.c		\
-		   $(SRCDIR)transmission.c	\
-		   $(SRCDIR)string.c		\
+SRC		=  $(SRCDIR)socket.c			\
+		   $(SRCDIR)transmission.c		\
+		   $(SRCDIR)string.c			\
 
 SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 		   $(SRCSERVERDIR)functions_ptr.c	\
@@ -31,11 +31,18 @@ SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 		   $(SRCSERVERDIR)ftp_other_func.c	\
 		   $(SRCSERVERDIR)ftp_cwd_func.c	\
 		   $(SRCSERVERDIR)ftp_pasv.c		\
+		   $(SRCSERVERDIR)ftp_retr.c		\
 		   $(SRCSERVERDIR)ftp_port.c		\
 		   $(SRCSERVERDIR)struct.c		\
 		   $(OBJ)
 
-SRCCLIENT	=  $(SRCCLIENTDIR)client.c	\
+SRCCLIENT	=  $(SRCCLIENTDIR)client.c		\
+		   $(SRCCLIENTDIR)struct.c		\
+		   $(SRCCLIENTDIR)client_port.c		\
+		   $(SRCCLIENTDIR)client_pasv.c		\
+		   $(SRCCLIENTDIR)client_func.c		\
+		   $(SRCCLIENTDIR)client_stor.c		\
+		   $(SRCCLIENTDIR)client_transfer.c	\
 		   $(OBJ)
 
 OBJ		=  $(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)

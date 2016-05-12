@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Tue May 10 20:46:29 2016 Axel Vencatareddy
-** Last update	Wed May 11 16:05:12 2016 Axel Vencatareddy
+** Last update	Thu May 12 11:52:07 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -51,24 +51,24 @@ int		send_pasv_info(t_ptr *struc, t_sock_in sin)
   char		**str_ip;
 
   len = sizeof(sin);
-  if (listen_socket(struc->data_fd, 1) == -1)
+  if (listen_socket(struc->data_socket, 1) == -1)
     return (-1);
-  if ((ip = getsockname(struc->data_fd, (struct sockaddr *)&sin, &len)) == -1)
+  if ((ip = getsockname(struc->data_socket, (struct sockaddr *)&sin, &len)) == -1)
     perror("getsockname");
   else
     {
       if ((str_ip = my_ip(inet_ntoa(sin.sin_addr))) == NULL)
         return (-1);
-      sprintf(str, "%s,%s,%s,%s,%d,%d", str_ip[0], str_ip[1], str_ip[2],
-              str_ip[3], struc->data_port/256, struc->data_port % 256);
-      send_msg(struc->client_fd, "227 Entering Passive Mode (");
+      sprintf(str, "227 Entering Passive Mode (%s,%s,%s,%s,%d,%d).\r\n",
+              str_ip[0], str_ip[1], str_ip[2], str_ip[3], struc->data_port/256,
+              struc->data_port % 256);
       send_msg(struc->client_fd, str);
-      send_msg(struc->client_fd, ").\r\n");
       if (str_ip)
         free(str_ip);
     }
   struc->mode = PASV;
-  return (accept_socket(struc->data_fd) == -1);
+  struc->data_fd = accept_socket(struc->data_socket);
+  return (0);
 }
 
 in_addr_t	my_client_ip(t_ptr *struc)
@@ -95,13 +95,13 @@ int		my_pasv(t_ptr *struc)
   else
     {
       if (struc->mode != NOPE)
-        close_socket(struc->data_fd);
-      struc->data_fd = open_socket();
+        close_socket(struc->data_socket);
+      struc->data_socket = open_socket();
       s_in.sin_family = AF_INET;
       s_in.sin_addr.s_addr = my_client_ip(struc);
       struc->data_port = actual_port(struc) + 1;
       s_in.sin_port = htons(struc->data_port);
-      while (bind(struc->data_fd, (const struct sockaddr *)&s_in,
+      while (bind(struc->data_socket, (const struct sockaddr *)&s_in,
              sizeof(s_in)) == -1 && struc->data_port < 65536)
         {
           struc->data_port++;

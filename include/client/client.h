@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:20:53 2016 Axel Vencatareddy
-** Last update	Wed Apr 27 23:52:28 2016 Axel Vencatareddy
+** Last update	Thu May 12 19:18:14 2016 Axel Vencatareddy
 */
 
 #ifndef CLIENT_H_
@@ -16,5 +16,32 @@
 # include <string.h>
 # include <unistd.h>
 # include "socket_prot.h"
+
+# define BUFSIZE 1024
+
+typedef enum { false, true } bool;
+typedef enum { PASV, ACTV, NOPE } data_mode;
+
+typedef struct	s_client
+{
+  bool		is_end;
+  bool		is_connected;
+  char		**tab;
+  char		*line;
+  int		fd_server;
+  int		fd_data;
+  int		fd_socket;
+  data_mode	mode;
+}		t_client;
+
+int	my_pasv(t_client *);
+int	my_port(t_client *);
+int	my_exit(t_client *);
+int	my_stor(t_client *);
+int	my_retr(t_client *);
+int	my_cl_list(t_client *);
+void	init_struct(t_client *, int);
+int	close_my_sockets(t_client *);
+int	my_open(char *, int);
 
 #endif /* !CLIENT_H_ */

@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Mon May 09 15:59:05 2016 Axel Vencatareddy
-** Last update	Wed May 11 15:41:54 2016 Axel Vencatareddy
+** Last update	Thu May 12 12:15:26 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -88,6 +88,8 @@ int	my_list(t_ptr *struc)
       dup2(struc->data_fd, 1);
       system("ls -l | grep -v ^d | grep -v ^total");
       dup2(tmp, 1);
+      close(tmp);
+      close_socket(struc->data_fd);
       send_msg(struc->client_fd, "226 Transfer complete.\r\n");
     }
   return (0);

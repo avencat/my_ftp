@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:21:01 2016 Axel Vencatareddy
-** Last update	Tue May 10 22:53:30 2016 Axel Vencatareddy
+** Last update	Wed May 11 23:06:40 2016 Axel Vencatareddy
 */
 
 #ifndef SERVER_H_
@@ -37,6 +37,7 @@ typedef struct	s_ptr
   char		*root_dir;
   data_mode	mode;
   int		data_fd;
+  int		data_socket;
   int		data_port;
 }		t_ptr;
 
