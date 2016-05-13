@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Tue Apr 26 17:46:13 2016 Axel Vencatareddy
-** Last update	Wed May 11 22:53:47 2016 Axel Vencatareddy
+** Last update	Fri May 13 23:54:00 2016 Axel Vencatareddy
 */
 
 #include "transmission.h"
@@ -46,5 +46,7 @@ char		*recv_cmd(int fd_sock)
       perror("read() error");
       return (NULL);
     }
+  else if (len == 0)
+    return (NULL);
   return (strdup(buf));
 }

@@ -1,3 +1,13 @@
+##
+## Makefile for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp
+## 
+## Made by Axel Vencatareddy
+## Login   <vencat_a@epitech.net>
+## 
+## Started on  Sat May 14 00:17:23 2016 Axel Vencatareddy
+## Last update Sat May 14 00:17:33 2016 Axel Vencatareddy
+##
+
 CC		=  gcc
 
 RM		=  rm -rf
@@ -40,6 +50,7 @@ SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 
 SRCCLIENT	=  $(SRCCLIENTDIR)client.c		\
 		   $(SRCCLIENTDIR)struct.c		\
+		   $(SRCCLIENTDIR)client_ptr.c		\
 		   $(SRCCLIENTDIR)client_port.c		\
 		   $(SRCCLIENTDIR)client_pasv.c		\
 		   $(SRCCLIENTDIR)client_func.c		\
