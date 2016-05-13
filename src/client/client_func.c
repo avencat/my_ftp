@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:57:03 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:18:19 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:02:39 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -21,7 +21,7 @@ int		close_my_sockets(t_client *cl)
 {
   if (cl->mode != NOPE)
     close_socket(cl->fd_data);
-  if (cl->fd_socket != -1)
+  if (cl->mode == PASV)
     close_socket(cl->fd_socket);
   cl->fd_socket = -1;
   return (0);

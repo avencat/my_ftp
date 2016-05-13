@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:08:36 2016 Axel Vencatareddy
-** Last update	Thu May 12 15:44:10 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:56:12 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -73,6 +73,16 @@ int		accept_all_clients(int fd_sock, char *root_dir)
   return (0);
 }
 
+void		hello_msg(char *av)
+{
+  char		*path;
+
+  path = get_current_dir_name();
+  printf("Hello !\nServer port: %s\nPATH of the Anonymous account: %s\nUse ^C \
+to QUIT.\n", av, path);
+  free(path);
+}
+
 int		main(int ac, char **av)
 {
   int		fd_sock;
@@ -91,11 +101,10 @@ int		main(int ac, char **av)
     return (-1);
   if (init_socket(fd_sock, atoi(av[1])) == -1)
     return (-1);
-  printf("Hello !\nServer port: %s\nPATH of the Anonymous account: %s\
-\nUse ^C to QUIT.\n", av[1], av[2]);
+  hello_msg(av[1]);
   if (listen_socket(fd_sock, NB_CLIENTS_MAX) == -1)
     return (-1);
-  if (accept_all_clients(fd_sock, strdup(av[2])) == -1)
+  if (accept_all_clients(fd_sock, av[2]) == -1)
     return (-1);
   if (close_socket(fd_sock) == -1)
     return (-1);

@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:17:23 2016 Axel Vencatareddy
-** Last update	Wed May 11 13:09:17 2016 Axel Vencatareddy
+** Last update	Fri May 13 10:34:13 2016 Axel Vencatareddy
 */
 
 #ifndef FUNCTIONS_PTR_H_
@@ -27,5 +27,6 @@ int	my_noop(t_ptr *);
 int	my_retr(t_ptr *);
 int	my_stor(t_ptr *);
 int	my_list(t_ptr *);
+void	close_my_sockets(t_ptr *);
 
 #endif /* !FUNCTIONS_PTR_H_ */

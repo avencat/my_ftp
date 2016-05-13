@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:27:52 2016 Axel Vencatareddy
-** Last update	Tue May 10 22:46:44 2016 Axel Vencatareddy
+** Last update	Fri May 13 10:38:46 2016 Axel Vencatareddy
 */
 
 #include "socket.h"
@@ -49,10 +49,7 @@ int		connect_socket(int fd_sock, int port, char *ip)
     {
       perror("connect() error");
       if (close(fd_sock) == -1)
-        {
-          perror("close() error");
-          return (-1);
-        }
+        perror("close() error");
       return (-1);
     }
   return (0);

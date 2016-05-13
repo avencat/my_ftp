@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Tue May 10 20:46:29 2016 Axel Vencatareddy
-** Last update	Thu May 12 11:52:07 2016 Axel Vencatareddy
+** Last update	Fri May 13 10:34:18 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -94,8 +94,7 @@ int		my_pasv(t_ptr *struc)
     send_msg(struc->client_fd, "530 Please login with USER and PASS.\r\n");
   else
     {
-      if (struc->mode != NOPE)
-        close_socket(struc->data_socket);
+      close_my_sockets(struc);
       struc->data_socket = open_socket();
       s_in.sin_family = AF_INET;
       s_in.sin_addr.s_addr = my_client_ip(struc);

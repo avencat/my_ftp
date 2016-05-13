@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:20:53 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:18:14 2016 Axel Vencatareddy
+** Last update	Fri May 13 10:55:04 2016 Axel Vencatareddy
 */
 
 #ifndef CLIENT_H_
@@ -31,6 +31,7 @@ typedef struct	s_client
   int		fd_server;
   int		fd_data;
   int		fd_socket;
+  int		actual_port;
   data_mode	mode;
 }		t_client;
 
@@ -40,7 +41,7 @@ int	my_exit(t_client *);
 int	my_stor(t_client *);
 int	my_retr(t_client *);
 int	my_cl_list(t_client *);
-void	init_struct(t_client *, int);
+void	init_struct(t_client *, int, int);
 int	close_my_sockets(t_client *);
 int	my_open(char *, int);
 

@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Thu May 12 15:02:49 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:18:16 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:45:10 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -13,7 +13,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-int	my_open(char *cmd, int mode)
+int	my_open_create(char *cmd, int mode, mode_t perm)
 {
   int	file;
   char	*tmp;
@@ -29,7 +29,7 @@ int	my_open(char *cmd, int mode)
         tmp[i] = '\0';
       i++;
     }
-  if ((file = open(tmp, mode)) == -1)
+  if ((file = open(tmp, mode, perm)) == -1)
     perror("open() error");
   free(to_free);
   return (file);
@@ -62,18 +62,16 @@ int	my_retr(t_client *cl)
       send_msg(cl->fd_server, cl->line);
       return (0);
     }
-  if ((file = my_open(cl->line, O_WRONLY | O_CREAT)) == -1)
+  if ((file = my_open_create(cl->line, O_RDWR | O_CREAT, 0666)) == -1)
     return (2);
   send_msg(cl->fd_server, cl->line);
   if (check_my_retr(cl) == 2)
     return (2);
-  buf[0] = 0;
-  count = 1;
-  while (buf[(count < 1 ? 1 : count)- 1] != EOF)
-    {
-      count = read(cl->fd_data, buf, BUFSIZE - 1);
-      write(file, buf, count);
-    }
+  while ((count = read(cl->fd_data, buf, BUFSIZE)) > 0)
+    write(file, buf, count);
+  if (count == -1)
+    perror("read() error");
+  close(file);
   close_socket(cl->fd_data);
   cl->fd_data = -1;
   cl->mode = NOPE;

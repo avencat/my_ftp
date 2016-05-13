@@ -5,13 +5,35 @@
 ** Login	vencat_a
 **
 ** Started on	Thu May 12 19:16:36 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:18:13 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:46:15 2016 Axel Vencatareddy
 */
 
 #include "client.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+int	my_open(char *cmd, int mode)
+{
+  int	file;
+  char	*tmp;
+  char	*to_free;
+  int	i;
+
+  to_free = strdup(cmd);
+  tmp = strchr(to_free, ' ') + 1;
+  i = 0;
+  while (tmp && tmp[i])
+    {
+      if (tmp[i] == '\r' || tmp[i] == '\n')
+        tmp[i] = '\0';
+      i++;
+    }
+  if ((file = open(tmp, mode)) == -1)
+    perror("open() error");
+  free(to_free);
+  return (file);
+}
 
 int	check_my_stor(t_client *cl)
 {
@@ -34,17 +56,17 @@ int	my_stor_end(t_client *cl, int file)
   char	buf[BUFSIZE];
   int	count;
 
-  buf[0] = 0;
-  count = 1;
-  while (buf[(count == 0 ? 1 : count) - 1] != EOF)
+  while ((count = read(file, buf, BUFSIZE)) > 0)
     {
-      if ((count = read(file, buf, BUFSIZE)) == -1)
-        {
-          perror("read()");
-          return (-1);
-        }
       write(cl->fd_data, buf, count);
     }
+  if (count == -1)
+    {
+      close(file);
+      perror("read()");
+      return (-1);
+    }
+  close(file);
   return (0);
 }
 

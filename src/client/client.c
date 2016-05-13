@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:03:52 2016 Axel Vencatareddy
-** Last update	Thu May 12 17:29:24 2016 Axel Vencatareddy
+** Last update	Fri May 13 10:55:07 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -62,7 +62,7 @@ void		act_on_recv(char *line, t_client *cl, int mode)
     free(line);
 }
 
-int		read_line(int fd_sock)
+int		read_line(int fd_sock, int actual_port)
 {
   size_t	len;
   ssize_t	readed;
@@ -70,7 +70,7 @@ int		read_line(int fd_sock)
   t_client	cl;
   int		ret;
 
-  init_struct(&cl, fd_sock);
+  init_struct(&cl, fd_sock, actual_port);
   line = recv_cmd(fd_sock);
   fputs(line, stdout);
   line = NULL;
@@ -101,7 +101,7 @@ int		main(int ac, char **av)
     return (-1);
   if (connect_socket(fd_sock, atoi(av[2]), av[1]) == -1)
     return (-1);
-  if (read_line(fd_sock) == -1)
+  if (read_line(fd_sock, atoi(av[2])) == -1)
     return (-1);
   if (close_socket(fd_sock) == -1)
     return (-1);

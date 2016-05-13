@@ -5,26 +5,11 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:54:50 2016 Axel Vencatareddy
-** Last update	Thu May 12 15:29:06 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:03:14 2016 Axel Vencatareddy
 */
 
 #include "client.h"
 #include "socket.h"
-
-int		actual_port(t_client *struc)
-{
-  t_sock_in	sin;
-  socklen_t	len;
-
-  len = sizeof(sin);
-  if (getsockname(struc->fd_server, (struct sockaddr *)&sin, &len) == -1)
-    {
-      perror("getsockname");
-      return (-1);
-    }
-  else
-    return (ntohs(sin.sin_port));
-}
 
 char		**get_my_ip(char *tmp)
 {
@@ -56,16 +41,16 @@ int		send_port_info(t_client *cl, int port)
     return (-1);
   sprintf(str, "PORT %s,%s,%s,%s,%d,%d\r\n", str_ip[0], str_ip[1], str_ip[2],
           str_ip[3], port / 256, port % 256);
+  cl->fd_socket = cl->fd_data;
   send_msg(cl->fd_server, str);
+  cl->fd_data = accept_socket(cl->fd_socket);
   if (str_ip)
     free(str_ip);
   if (tmp_ip)
     free(tmp_ip);
   cl->mode = ACTV;
-  if (cl->fd_socket != 0)
+  if (cl->fd_socket != -1)
     close_socket(cl->fd_socket);
-  cl->fd_socket = cl->fd_data;
-  cl->fd_data = accept_socket(cl->fd_server);
   return (0);
 }
 
@@ -84,7 +69,7 @@ int		my_port(t_client *cl)
   cl->fd_data = open_socket();
   s_in.sin_family = AF_INET;
   s_in.sin_addr.s_addr = inet_addr("127.0.0.1");
-  port = actual_port(cl);
+  port = cl->actual_port + 1;
   s_in.sin_port = htons(port);
   while (bind(cl->fd_data, (const struct sockaddr *)&s_in,
          sizeof(s_in)) == -1 && port < 65536)

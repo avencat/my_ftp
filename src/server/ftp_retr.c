@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Thu May 12 19:22:10 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:22:40 2016 Axel Vencatareddy
+** Last update	Fri May 13 11:32:07 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -18,17 +18,17 @@ int	my_retr_end(t_ptr *struc, int file)
   char	buf[BUFSIZE];
   int	count;
 
-  buf[0] = 0;
-  count = 1;
-  while (buf[count - 1] != EOF)
+  while ((count = read(file, buf, BUFSIZE)) > 0)
     {
-      if ((count = read(file, buf, BUFSIZE)) == -1)
-        {
-          perror("read()");
-          return (-1);
-        }
       write(struc->data_fd, buf, count);
     }
+  if (count == -1)
+    {
+      close(file);
+      perror("read()");
+      return (-1);
+    }
+  close(file);
   return (0);
 }
 
