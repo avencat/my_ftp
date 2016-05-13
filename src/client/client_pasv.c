@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:51:09 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:15:33 2016 Axel Vencatareddy
+** Last update	Sat May 14 00:26:30 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -35,12 +35,18 @@ int		not_connected(t_client *cl)
   return (2);
 }
 
-int		my_pasv_end(t_client *cl, char *ip, char *cmd)
+int		my_pasv_end(t_client *cl, char *ip, char *cmd, char *tmp)
 {
   if ((cl->fd_data = open_socket()) == -1)
-    return (-1);
+    {
+      free(tmp);
+      free(cmd);
+      free(ip);
+      return (-1);
+    }
   if (connect_socket(cl->fd_data, get_my_port(), ip) == -1)
     {
+      free(tmp);
       free(cmd);
       free(ip);
       close(cl->fd_data);
@@ -49,6 +55,7 @@ int		my_pasv_end(t_client *cl, char *ip, char *cmd)
   cl->mode = PASV;
   free(cmd);
   free(ip);
+  free(tmp);
   return (2);
 }
 
@@ -68,9 +75,8 @@ int		my_pasv(t_client *cl)
       tmp = strchr(cmd, '(') + 1;
       tmp = strdup(tmp);
       ip = my_ip(tmp);
-      free(tmp);
       close_my_sockets(cl);
-      return (my_pasv_end(cl, ip, cmd));
+      return (my_pasv_end(cl, ip, cmd, tmp));
     }
   return (2);
 }

@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:54:50 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:15:30 2016 Axel Vencatareddy
+** Last update	Sat May 14 00:29:50 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -64,8 +64,7 @@ int		my_port(t_client *cl)
       send_msg(cl->fd_server, cl->line);
       return (0);
     }
-  if (cl->mode != NOPE)
-    close_socket(cl->fd_data);
+  close_my_sockets(cl);
   cl->fd_data = open_socket();
   s_in.sin_family = AF_INET;
   s_in.sin_addr.s_addr = inet_addr("127.0.0.1");
