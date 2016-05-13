@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:16:12 2016 Axel Vencatareddy
-** Last update	Thu May 12 19:18:17 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:50:02 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -17,8 +17,8 @@ int	my_ptr_func(int (*ptr[14])(t_ptr *), char *ptr_name[14], t_ptr *struc)
   i = 0;
   while (i < 14 && struc->tab)
     {
-      if (ptr[i] && strncmp(ptr_name[i], struc->tab[0],
-                            my_strlen(ptr_name[i])) == 0)
+      if (ptr[i] && struc->tab && struc->tab[0] &&
+          strncmp(ptr_name[i], struc->tab[0], my_strlen(ptr_name[i])) == 0)
         return (ptr[i](struc));
       i++;
     }

@@ -5,21 +5,13 @@
 ** Login	vencat_a
 **
 ** Started on	Tue May 10 21:37:00 2016 Axel Vencatareddy
-** Last update	Fri May 13 11:02:59 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:32:08 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
 #include "socket.h"
 
-void		close_my_sockets(t_ptr *struc)
-{
-  if (struc->mode != NOPE)
-    close_socket(struc->data_fd);
-  if (struc->mode == PASV)
-    close_socket(struc->data_socket);
-}
-
-int		first_nb(char *str, int *i, int *count)
+int		get_nb(char *str, int *i, int *count)
 {
   int		j;
   char		port[10];
@@ -55,9 +47,9 @@ int		get_my_port(char *str)
         count++;
       i++;
     }
-  nb = first_nb(str, &i, &count);
+  nb = get_nb(str, &i, &count);
   tmp_count = 4;
-  sec = first_nb(str, &i, &tmp_count);
+  sec = get_nb(str, &i, &tmp_count);
   if (count < 5 || tmp_count > 4)
     return (-1);
   return (256 * nb + sec);
@@ -90,6 +82,20 @@ char		*get_my_ip(char *str)
   return (strdup(ip));
 }
 
+int		my_port_end(t_ptr *struc, char *ip)
+{
+  if (connect_socket(struc->data_fd, struc->data_port, ip) == -1)
+    {
+      free(ip);
+      send_msg(struc->client_fd, "425 Cannot Connect To The Port.\r\n");
+      return (-1);
+    }
+  free(ip);
+  struc->mode = ACTV;
+  send_msg(struc->client_fd, "200 Connected To The Port.\r\n");
+  return (0);
+}
+
 int		my_port(t_ptr *struc)
 {
   char		*ip;
@@ -103,17 +109,12 @@ int		my_port(t_ptr *struc)
         return (send_msg(struc->client_fd, "501 Bad IP Address Passed.\r\n"));
       if ((struc->data_port = get_my_port(struc->tab[1])) == -1)
         {
+          free(ip);
           send_msg(struc->client_fd, "501 Bad Port Passed.\r\n");
           return (-1);
         }
       struc->data_fd = open_socket();
-      if (connect_socket(struc->data_fd, struc->data_port, ip) == -1)
-        {
-          send_msg(struc->client_fd, "425 Cannot Connect To The Port.\r\n");
-          return (-1);
-        }
-      struc->mode = ACTV;
-      send_msg(struc->client_fd, "200 Connected To The Port.\r\n");
+      return (my_port_end(struc, ip));
     }
   return (0);
 }

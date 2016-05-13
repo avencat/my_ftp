@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:21:01 2016 Axel Vencatareddy
-** Last update	Wed May 11 23:06:40 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:35:46 2016 Axel Vencatareddy
 */
 
 #ifndef SERVER_H_
@@ -45,5 +45,7 @@ int		functions_ptr(t_ptr *);
 char		*get_current_dir_name();
 void		my_free_tab(char **);
 void		init_struc(t_ptr *, int, int, char *);
+void		free_struct(t_ptr *);
+void		my_null_cmd(t_ptr *);
 
 #endif /* !SERVER_H_ */

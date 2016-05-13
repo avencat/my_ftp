@@ -5,49 +5,10 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:51:09 2016 Axel Vencatareddy
-** Last update	Fri May 13 11:01:38 2016 Axel Vencatareddy
+** Last update	Fri May 13 21:10:24 2016 Axel Vencatareddy
 */
 
 #include "client.h"
-
-void		my_sec_ip(char (*ip)[17], int i[2])
-{
-  char		*tmp;
-
-  tmp = strtok(NULL, ",");
-  i[1] = 0;
-  while (tmp && tmp[i[1]])
-    (*ip)[i[0]++] = tmp[i[1]++];
-  (*ip)[i[0]++] = '.';
-  tmp = strtok(NULL, ",");
-  i[1] = 0;
-  while (tmp && tmp[i[1]])
-    (*ip)[i[0]++] = tmp[i[1]++];
-}
-
-char		*my_ip(char *cmd)
-{
-  char		ip[17];
-  char		*tmp;
-  int		i[2];
-
-  if (!cmd)
-    return (NULL);
-  tmp = strtok(cmd, ",");
-  i[0] = 0;
-  i[1] = 0;
-  memset(ip, 0, 17);
-  while (tmp && tmp[i[1]])
-    ip[i[0]++] = tmp[i[1]++];
-  tmp = strtok(NULL, ",");
-  ip[i[0]++] = '.';
-  i[1] = 0;
-  while (tmp && tmp[i[1]])
-    ip[i[0]++] = tmp[i[1]++];
-  ip[i[0]++] = '.';
-  my_sec_ip(&ip, i);
-  return (strdup(ip));
-}
 
 int		get_my_port()
 {
@@ -74,6 +35,23 @@ int		not_connected(t_client *cl)
   return (2);
 }
 
+int		my_pasv_end(t_client *cl, char *ip, char *cmd)
+{
+  if ((cl->fd_data = open_socket()) == -1)
+    return (-1);
+  if (connect_socket(cl->fd_data, get_my_port(), ip) == -1)
+    {
+      free(cmd);
+      free(ip);
+      close(cl->fd_data);
+      return (-1);
+    }
+  cl->mode = PASV;
+  free(cmd);
+  free(ip);
+  return (2);
+}
+
 int		my_pasv(t_client *cl)
 {
   char		*cmd;
@@ -88,17 +66,11 @@ int		my_pasv(t_client *cl)
   if (strncmp(cmd, "227", 3) == 0)
     {
       tmp = strchr(cmd, '(') + 1;
-      ip = my_ip(strdup(tmp));
+      tmp = strdup(tmp);
+      ip = my_ip(tmp);
+      free(tmp);
       close_my_sockets(cl);
-      if ((cl->fd_data = open_socket()) == -1)
-        return (-1);
-      if (connect_socket(cl->fd_data, get_my_port(), ip) == -1)
-        {
-          close(cl->fd_data);
-          return (-1);
-        }
-      cl->mode = PASV;
-      free(cmd);
+      return (my_pasv_end(cl, ip, cmd));
     }
   return (2);
 }

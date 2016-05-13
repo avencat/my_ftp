@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:03:52 2016 Axel Vencatareddy
-** Last update	Fri May 13 10:55:07 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:59:11 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -73,12 +73,17 @@ int		read_line(int fd_sock, int actual_port)
   init_struct(&cl, fd_sock, actual_port);
   line = recv_cmd(fd_sock);
   fputs(line, stdout);
+  if (line)
+    free(line);
   line = NULL;
   while (cl.is_end == false &&
          (readed = getline(&line, &len, stdin)) != -1)
     {
       cl.line = line;
-      ret = my_ptr_func(&cl);
+      if (line && line[0] != '\n')
+        ret = my_ptr_func(&cl);
+      else
+        ret = 2;
       act_on_recv(line, &cl, ret);
       line = NULL;
     }

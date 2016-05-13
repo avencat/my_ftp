@@ -33,6 +33,7 @@ SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 		   $(SRCSERVERDIR)ftp_port.c		\
 		   $(SRCSERVERDIR)ftp_retr.c		\
 		   $(SRCSERVERDIR)ftp_stor.c		\
+		   $(SRCSERVERDIR)ftp_sockets.c		\
 		   $(SRCSERVERDIR)functions_ptr.c	\
 		   $(SRCSERVERDIR)struct.c		\
 		   $(OBJ)
@@ -44,6 +45,7 @@ SRCCLIENT	=  $(SRCCLIENTDIR)client.c		\
 		   $(SRCCLIENTDIR)client_func.c		\
 		   $(SRCCLIENTDIR)client_stor.c		\
 		   $(SRCCLIENTDIR)client_retr.c		\
+		   $(SRCCLIENTDIR)client_pasv_func.c	\
 		   $(OBJ)
 
 OBJ		=  $(SRC:$(SRCDIR)%.c=$(OBJDIR)%.o)

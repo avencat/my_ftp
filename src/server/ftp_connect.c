@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Fri May 06 15:37:37 2016 Axel Vencatareddy
-** Last update	Tue May 10 21:36:13 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:25:45 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"
@@ -16,6 +16,8 @@ int	my_user(t_ptr *struc)
     send_msg(struc->client_fd, "530 Permission denied.\r\n");
   else
     {
+      if (struc->user)
+        free(struc->user);
       struc->user = strdup(struc->tab[1]);
       send_msg(struc->client_fd, "331 Please specify the password.\r\n");
     }
@@ -36,7 +38,8 @@ int	my_pass(t_ptr *struc)
   else
     {
       send_msg(struc->client_fd, "530 Login incorrect.\r\n");
-      free(struc->user);
+      if (struc->user)
+        free(struc->user);
       struc->user = NULL;
     }
   return (0);
@@ -64,4 +67,12 @@ int	my_dele(t_ptr *struc)
         send_msg(struc->client_fd, "250 File deleted.\r\n");
     }
   return (0);
+}
+
+void		my_null_cmd(t_ptr *struc)
+{
+  if (struc->is_connected == false)
+    send_msg(struc->client_fd, "530 Please login with USER and PASS.\r\n");
+  else
+    send_msg(struc->client_fd, "500 Unknown Command.\r\n");
 }

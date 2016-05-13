@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:20:53 2016 Axel Vencatareddy
-** Last update	Fri May 13 10:55:04 2016 Axel Vencatareddy
+** Last update	Fri May 13 21:09:18 2016 Axel Vencatareddy
 */
 
 #ifndef CLIENT_H_
@@ -44,5 +44,6 @@ int	my_cl_list(t_client *);
 void	init_struct(t_client *, int, int);
 int	close_my_sockets(t_client *);
 int	my_open(char *, int);
+char	*my_ip(char *);
 
 #endif /* !CLIENT_H_ */

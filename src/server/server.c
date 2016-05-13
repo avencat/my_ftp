@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat Apr 23 19:08:36 2016 Axel Vencatareddy
-** Last update	Fri May 13 11:56:12 2016 Axel Vencatareddy
+** Last update	Fri May 13 20:36:42 2016 Axel Vencatareddy
 */
 
 #include "server.h"
@@ -20,11 +20,15 @@ int		receive(int fd_sock, int fd_client, char *root_dir)
   while (my_struc.end == false && (cmd = recv_cmd(fd_client)))
     {
       my_struc.tab = my_str_to_wordtab(cmd);
+      if ((!my_struc.tab || !my_struc.tab[0] || !my_struc.tab[0][0])
+          && my_strlen(cmd) > 1)
+        my_null_cmd(&my_struc);
       functions_ptr(&my_struc);
       free(cmd);
       cmd = NULL;
       my_free_tab(my_struc.tab);
     }
+  free_struct(&my_struc);
   if (!cmd)
     {
       close(fd_client);
