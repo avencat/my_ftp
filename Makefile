@@ -17,7 +17,7 @@ INCCLIENTDIR	=  include/client/
 INCFLAGS	=  -I./$(INCDIR) -I./$(INCCLIENTDIR) -I./$(INCSERVERDIR)
 CFLAGS		+= -W -Wall -Wextra -Werror $(INCFLAGS) -g
 
-SERVER		=  serveur
+SERVER		=  server
 CLIENT		=  client
 NAME		=  my_ftp
 
