@@ -1,12 +1,14 @@
 # my_ftp
 Repository for the my_ftp project that I realized on my 2nd year at Epitech
+During this project, we had to do a ftp server that handle several commands that are listed above.
+I've also done a ftp client to communicate with the server.
 
 # Installation
 make
 
 # Usage
 ## Server
-./server [port] [path_to_the_anonymous_root_account]
+./server [port] [path_to_the_anonymous_root_directory]
 
 ## Client
 ./client [ip_address_of_the_server] [port]
