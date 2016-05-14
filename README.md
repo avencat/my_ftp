@@ -6,7 +6,7 @@ make
 
 # Usage
 ## Server
-./server [port] [path_to_the_anonymous_root_account]
+./server [port] [path_to_the_anonymous_root_directory]
 
 ## Client
 ./client [ip_address_of_the_server] [port]
