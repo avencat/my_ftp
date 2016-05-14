@@ -1,11 +1,11 @@
 /*
-** transmission.c for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Tue Apr 26 17:46:13 2016 Axel Vencatareddy
-** Last update	Sat May 14 14:06:10 2016 Axel Vencatareddy
+** transmission.c for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/src
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:09:18 2016 Axel Vencatareddy
+** Last update Sat May 14 14:09:19 2016 Axel Vencatareddy
 */
 
 #include "transmission.h"

@@ -1,11 +1,11 @@
 /*
-** server.h for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Sun Apr 24 14:21:01 2016 Axel Vencatareddy
-** Last update	Fri May 13 20:35:46 2016 Axel Vencatareddy
+** server.h for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/include/server
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:17:53 2016 Axel Vencatareddy
+** Last update Sat May 14 14:17:54 2016 Axel Vencatareddy
 */
 
 #ifndef SERVER_H_

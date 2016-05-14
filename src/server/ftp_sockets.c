@@ -1,11 +1,11 @@
 /*
-** ftp_sockets.c for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Fri May 13 20:31:48 2016 Axel Vencatareddy
-** Last update	Fri May 13 20:32:03 2016 Axel Vencatareddy
+** ftp_sockets.c for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/src/server
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:14:18 2016 Axel Vencatareddy
+** Last update Sat May 14 14:14:19 2016 Axel Vencatareddy
 */
 
 #include "functions_ptr.h"

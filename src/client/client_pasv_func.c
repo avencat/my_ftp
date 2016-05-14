@@ -1,11 +1,11 @@
 /*
-** client_pasv_func.c for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Fri May 13 21:08:19 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:15:36 2016 Axel Vencatareddy
+** client_pasv_func.c for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/src/client
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:10:38 2016 Axel Vencatareddy
+** Last update Sat May 14 14:10:39 2016 Axel Vencatareddy
 */
 
 #include "client.h"

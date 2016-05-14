@@ -1,11 +1,11 @@
 /*
-** main.c for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Sat Apr 23 19:03:52 2016 Axel Vencatareddy
-** Last update	Sat May 14 14:05:28 2016 Axel Vencatareddy
+** client.c for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/src/client
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:09:37 2016 Axel Vencatareddy
+** Last update Sat May 14 14:09:38 2016 Axel Vencatareddy
 */
 
 #include "client.h"

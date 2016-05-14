@@ -1,11 +1,11 @@
 /*
-** socket_prot.h for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Sun Apr 24 14:30:15 2016 Axel Vencatareddy
-** Last update	Sat May 14 13:26:24 2016 Axel Vencatareddy
+** socket_prot.h for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/include
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:17:10 2016 Axel Vencatareddy
+** Last update Sat May 14 14:17:11 2016 Axel Vencatareddy
 */
 
 #ifndef SOCKET_PROT_H_

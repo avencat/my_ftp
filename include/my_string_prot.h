@@ -1,11 +1,11 @@
 /*
-** my_string_prot.h for PSU_2015_myftp
-**
-** Made by	Axel Vencatareddy
-** Login	vencat_a
-**
-** Started on	Fri May 06 15:07:50 2016 Axel Vencatareddy
-** Last update	Fri May 06 18:48:55 2016 Axel Vencatareddy
+** my_string_prot.h for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/include
+** 
+** Made by Axel Vencatareddy
+** Login   <vencat_a@epitech.net>
+** 
+** Started on  Sat May 14 14:16:35 2016 Axel Vencatareddy
+** Last update Sat May 14 14:16:36 2016 Axel Vencatareddy
 */
 
 #ifndef MY_STRING_PROT_H_
