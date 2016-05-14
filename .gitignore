@@ -3,3 +3,6 @@
 obj/
 *.o
 /mouli_myftp_student
+/test
+/a.out
+/main.c

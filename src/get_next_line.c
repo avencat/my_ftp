@@ -1,11 +1,11 @@
 /*
 ** get_next_line.c for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp/src
-** 
+**
 ** Made by Axel Vencatareddy
 ** Login   <vencat_a@epitech.net>
-** 
+**
 ** Started on  Sat May 14 14:08:40 2016 Axel Vencatareddy
-** Last update Sat May 14 14:08:41 2016 Axel Vencatareddy
+** Last update	Sat May 14 20:07:13 2016 Axel Vencatareddy
 */
 
 #include "get_next_line.h"
@@ -33,7 +33,7 @@ char	*my_line(char buff[BUFSIZ + 1], char *line, int *start, int pos)
       ++j;
     }
   new_line[i + j] = '\0';
-  *start = *start + pos + 1;
+  *start = *start + pos;
   if (line != NULL)
     free(line);
   return (new_line);
@@ -67,9 +67,9 @@ char		*my_gnl_error(int mode)
 int		get_next_line_norm(t_gnl *get_nl, int *start,
 				   int *size, char (*buff)[BUFSIZ + 1])
 {
-  (*start) = 0;
+  *start = 0;
   get_nl->pos = 0;
-  if (((*size) = read(get_nl->fd, *buff, BUFSIZ)) < -1)
+  if (((*size) = read(get_nl->fd, *buff, BUFSIZ)) < 0)
     return (my_error("read() error", FALSE));
   else if (*size == 0 && get_nl->ctrl_d == 0)
     {
@@ -94,8 +94,9 @@ char		*get_next_line(const int fd)
 
   get_nl.i = 0;
   init_gnl_struct(&get_nl, 1, fd);
-  while (get_nl.i < BUFSIZ)
-    buff[get_nl.i++] = 0;
+  if (start == 0)
+    while (get_nl.i < BUFSIZ)
+      buff[get_nl.i++] = 0;
   while (42)
     {
       if (start >= size)
