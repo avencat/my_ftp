@@ -5,14 +5,14 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:57:03 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:31:07 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:26:40 2016 Axel Vencatareddy
 */
 
 #include "client.h"
 
 int		my_exit(t_client *cl)
 {
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   cl->is_end = true;
   return (0);
 }
@@ -29,7 +29,7 @@ int		my_cl_list(t_client *cl)
 {
   char		*cmd;
 
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   if (cl->mode == NOPE)
     return (0);
   cmd = recv_cmd(cl->fd_server);

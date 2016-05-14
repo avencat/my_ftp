@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Thu May 12 15:02:49 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:15:25 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:28:40 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -59,12 +59,12 @@ int	my_retr(t_client *cl)
 
   if (cl->is_connected == false || cl->mode == NOPE)
     {
-      send_msg(cl->fd_server, cl->line);
+      send_msg_client(cl->fd_server, cl->line);
       return (0);
     }
   if ((file = my_open_create(cl->line, O_RDWR | O_CREAT, 0666)) == -1)
     return (2);
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   if (check_my_retr(cl) == 2)
     return (2);
   while ((count = read(cl->fd_data, buf, BUFSIZE)) > 0)

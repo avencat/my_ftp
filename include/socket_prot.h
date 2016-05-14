@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sun Apr 24 14:30:15 2016 Axel Vencatareddy
-** Last update	Tue May 10 21:51:14 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:26:24 2016 Axel Vencatareddy
 */
 
 #ifndef SOCKET_PROT_H_
@@ -21,6 +21,7 @@ int	init_socket(int fd_sock, int port);
 int	listen_socket(int fd_sock, int nb);
 int	connect_socket(int fd_sock, int port, char *ip);
 int	send_msg(int fd, char *msg);
+int	send_msg_client(int fd, char *msg);
 char	*recv_cmd(int fd_sock);
 int	accept_socket(int sock_fd);
 

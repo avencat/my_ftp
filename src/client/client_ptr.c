@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Sat May 14 00:11:33 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:12:22 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:28:13 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -42,6 +42,6 @@ int		my_ptr_func(t_client *cl)
         return (ptr[i](cl));
       i++;
     }
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   return (0);
 }

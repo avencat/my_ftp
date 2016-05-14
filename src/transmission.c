@@ -5,10 +5,25 @@
 ** Login	vencat_a
 **
 ** Started on	Tue Apr 26 17:46:13 2016 Axel Vencatareddy
-** Last update	Fri May 13 23:54:00 2016 Axel Vencatareddy
+** Last update	Sat May 14 14:06:10 2016 Axel Vencatareddy
 */
 
 #include "transmission.h"
+
+int		send_msg_client(int fd, char *msg)
+{
+  if (write(fd, msg, strlen(msg)) == -1)
+    {
+      perror("write() error");
+      return (-1);
+    }
+  if (write(fd, "\r\n", 2) == -1)
+    {
+      perror("write() error");
+      return (-1);
+    }
+  return (0);
+}
 
 int		send_msg(int fd, char *msg)
 {
@@ -37,16 +52,9 @@ int		accept_socket(int sock_fd)
 
 char		*recv_cmd(int fd_sock)
 {
-  char		buf[2048];
-  int		len;
+  char		*buf;
 
-  memset(buf, 0, 2048);
-  if ((len = read(fd_sock, buf, 2048)) == -1)
-    {
-      perror("read() error");
-      return (NULL);
-    }
-  else if (len == 0)
+  if ((buf = get_next_line(fd_sock)) == NULL)
     return (NULL);
-  return (strdup(buf));
+  return (buf);
 }

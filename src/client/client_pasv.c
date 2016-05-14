@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:51:09 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:26:30 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:27:09 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -27,7 +27,7 @@ int		not_connected(t_client *cl)
 {
   char		*cmd;
 
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   cmd = recv_cmd(cl->fd_server);
   fputs(cmd, stdout);
   if (cmd)
@@ -67,7 +67,7 @@ int		my_pasv(t_client *cl)
 
   if (cl->is_connected == false)
     return (not_connected(cl));
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   cmd = recv_cmd(cl->fd_server);
   fputs(cmd, stdout);
   if (strncmp(cmd, "227", 3) == 0)

@@ -1,11 +1,11 @@
 ##
 ## Makefile for my_ftp in /home/vencat_a/rendu/PSU/PSU_2015_myftp
-## 
+##
 ## Made by Axel Vencatareddy
 ## Login   <vencat_a@epitech.net>
-## 
+##
 ## Started on  Sat May 14 00:17:23 2016 Axel Vencatareddy
-## Last update Sat May 14 00:17:33 2016 Axel Vencatareddy
+## Last update Jul May 14 12:49:00 2016 Axel Vencatareddy
 ##
 
 CC		=  gcc
@@ -34,6 +34,8 @@ NAME		=  my_ftp
 SRC		=  $(SRCDIR)socket.c			\
 		   $(SRCDIR)transmission.c		\
 		   $(SRCDIR)string.c			\
+		   $(SRCDIR)error.c			\
+		   $(SRCDIR)get_next_line.c		\
 
 SRCSERVER	=  $(SRCSERVERDIR)server.c		\
 		   $(SRCSERVERDIR)ftp_connect.c		\

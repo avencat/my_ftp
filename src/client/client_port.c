@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Wed May 11 18:54:50 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:29:50 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:27:44 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -61,7 +61,7 @@ int		my_port(t_client *cl)
 
   if (cl->is_connected == false)
     {
-      send_msg(cl->fd_server, cl->line);
+      send_msg_client(cl->fd_server, cl->line);
       return (0);
     }
   close_my_sockets(cl);

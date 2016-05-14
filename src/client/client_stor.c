@@ -5,7 +5,7 @@
 ** Login	vencat_a
 **
 ** Started on	Thu May 12 19:16:36 2016 Axel Vencatareddy
-** Last update	Sat May 14 00:15:22 2016 Axel Vencatareddy
+** Last update	Sat May 14 13:29:14 2016 Axel Vencatareddy
 */
 
 #include "client.h"
@@ -75,14 +75,14 @@ int	my_stor(t_client *cl)
   int	file;
 
   if (cl->is_connected == false || cl->mode == NOPE)
-    return (send_msg(cl->fd_server, cl->line));
+    return (send_msg_client(cl->fd_server, cl->line));
   if ((file = my_open(cl->line, O_RDONLY)) == -1)
     {
       fprintf(stderr, "Client: File doesn't exist or is busy.\
  Not sending cmd.\n");
       return (2);
     }
-  send_msg(cl->fd_server, cl->line);
+  send_msg_client(cl->fd_server, cl->line);
   if (check_my_stor(cl) == 2)
     return (2);
   if (my_stor_end(cl, file) == -1)
